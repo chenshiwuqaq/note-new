@@ -1,0 +1,56 @@
+server:
+  port: 8000
+
+spring:
+  cloud:
+    nacos:
+      config:
+        import-check:
+          enabled: false
+      server-addr: 127.0.0.1:8848
+  application:
+    name: service-todo
+  datasource:
+    url: jdbc:mysql://localhost:3306/note?serverTimezone=UTC
+    username: root
+    password: 20050702cj
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate.ddl-auto: update
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'chen'
+      paths-to-match: '/**'
+      #生成文档所需的扫包路径，一般为启动类目录
+      packages-to-scan: com.example.note
+
+#knife4j配置
+knife4j:
+  #是否启用增强设置
+  enable: true
+  #开启生产环境屏蔽
+  production: false
+  #是否启用登录认证
+  basic:
+    enable: true
+    username: chen
+    password: 123456
+  setting:
+    language: zh_cn
+    enable-version: true
+    enable-swagger-models: true
+    swagger-model-name: 用户模块
+#spring.jpa.show-sql=true
+#???sql
+#spring.jpa.properties.hibernate.format_sql=true;
+#???????????????

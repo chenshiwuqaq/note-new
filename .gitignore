@@ -1,0 +1,6 @@
+# 项目排除路径
+/services/service-note/target/
+/services/service-picture/target/
+/services/service-setting/target/
+/services/service-todo/target/
+/services/service-user/target/
