@@ -1,0 +1,23 @@
+#springdoc:
+#  swagger-ui:
+#    path: /swagger-ui.html
+#    tags-sorter: alpha
+#    operations-sorter: alpha
+#  api-docs:
+#    path: /v3/api-docs
+#  group-configs:
+#    - group: 'default'
+#      paths-to-match: '/**'
+#      packages-to-scan: org.ash
+#
+#knife4j:
+#  enable: true
+#  production: false
+#  basic:
+#    enable: true
+#    username: chen
+#    password: 123456
+#  setting:
+#    language: zh_cn
+#    enable-version: true
+#    enable-swagger-models: true
