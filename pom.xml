@@ -13,6 +13,7 @@
     <description>note</description>
     <modules>
         <module>services</module>
+        <module>common</module>
     </modules>
 
     <!-- 项目依赖版本 -->

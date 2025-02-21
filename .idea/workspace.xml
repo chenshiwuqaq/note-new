@@ -4,7 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d915465-2255-42ee-ac02-0bdf1567d087" name="更改" comment="" />
+    <list default="true" id="9d915465-2255-42ee-ac02-0bdf1567d087" name="更改" comment="新建了公共模块">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/services/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/service-picture/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/services/service-picture/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/service-todo/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/services/service-todo/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/service-user/src/main/java/org/ash/NoteApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/service-user/src/main/java/org/ash/UserApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/service-user/src/main/java/org/ash/demos/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/service-user/src/main/java/org/ash/demos/Controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/service-user/src/main/java/org/ash/demos/Entity/Result.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/service-user/src/main/java/org/ash/demos/Service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/service-user/src/main/java/org/ash/demos/Service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/service-user/src/main/java/org/ash/demos/config/Knife4jConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/service-user/src/main/java/org/ash/demos/config/WebConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/service-user/src/main/java/org/ash/demos/interceptors/LoginInterceptor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/service-user/src/main/java/org/ash/demos/utils/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/org/com/utils/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/service-user/src/main/java/org/ash/demos/utils/ThreadLocalUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/org/com/utils/ThreadLocalUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/service-user/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/services/service-user/src/main/resources/application.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,14 +35,26 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="2t9uOG5ob1TcYKu5xkiaud0iUAL" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -38,13 +72,17 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.Application.executor": "Run",
+    "Spring Boot.NoteApplication.executor": "Run",
+    "Spring Boot.UserApplication.executor": "Run",
     "Spring Boot.noteApplication.executor": "Run",
     "Spring Boot.pictureApplication.executor": "Run",
     "Spring Boot.settingApplication.executor": "Run",
     "Spring Boot.todoApplication.executor": "Run",
     "jdk.selected.JAVA_MODULE": "17 (3)",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/work/note-demos/services/service-user/src/main/java/org/ash",
+    "last_opened_file_path": "E:/work/note-demos/services/service-todo/src/main/java/org/ash",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -53,53 +91,33 @@
     "project.structure.last.edited": "模块",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "MavenSettings",
+    "settings.editor.selected.configurable": "com.gitee.ui.GiteeSettingsConfigurable",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\work\note-demos\services\service-user\src\main\java\org\ash" />
-      <recent name="E:\work\note-demos\services" />
-      <recent name="E:\work\note-demos\services\service-todo\src\main\resources" />
+      <recent name="E:\work\note-demos\services\service-todo\src\main\java\org\ash" />
+      <recent name="E:\work\note-demos\common\src\main\java\org\com\Controller" />
+      <recent name="E:\work\note-demos\services\service-user\src\main\java\org\ash\demos" />
+      <recent name="E:\work\note-demos\common\src\main\java\org" />
+      <recent name="E:\work\note-demos\services\common\Entity" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.ash.config" />
+      <recent name="org.Config" />
+      <recent name="org.ash.Entity" />
       <recent name="org.ash" />
       <recent name="org.ash.demos" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.NoteApplication">
-    <configuration name="Discovery (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="service-todo" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.org.ash.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.org.ash" />
-      <option name="MAIN_CLASS_NAME" value="com.org.ash.Discovery" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Discovery (2)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="service-todo" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.ash.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.ash" />
-      <option name="MAIN_CLASS_NAME" value="org.ash.Discovery" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Discovery.DiscoveryClient (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Spring Boot.Application">
+    <configuration name="Discovery.DiscoveryClient" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="service-todo" />
       <extension name="coverage">
         <pattern>
@@ -115,9 +133,35 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NoteApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="common" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.com.Application" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.com.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="service-user" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="org.ash.NoteApplication" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.ash.UserApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.ash.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="pictureApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="service-picture" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.ash.pictureApplication" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="org.ash.*" />
@@ -143,11 +187,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.NoteApplication" />
+        <item itemvalue="Spring Boot.Application" />
+        <item itemvalue="Spring Boot.UserApplication" />
+        <item itemvalue="Spring Boot.pictureApplication" />
         <item itemvalue="Spring Boot.todoApplication" />
-        <item itemvalue="JUnit.Discovery.DiscoveryClient (1)" />
-        <item itemvalue="JUnit.Discovery (2)" />
-        <item itemvalue="JUnit.Discovery (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -161,11 +204,49 @@
       <updated>1739776577976</updated>
       <workItem from="1739776579004" duration="1933000" />
       <workItem from="1739778532076" duration="4809000" />
-      <workItem from="1739949065805" duration="3309000" />
+      <workItem from="1739949065805" duration="14220000" />
+      <workItem from="1740013994251" duration="5648000" />
+      <workItem from="1740099423097" duration="9145000" />
     </task>
+    <task id="LOCAL-00001" summary="新建了公共模块">
+      <option name="closed" value="true" />
+      <created>1739969319174</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1739969319174</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="新建了公共模块" />
+    <option name="LAST_COMMIT_MESSAGE" value="新建了公共模块" />
   </component>
 </project>

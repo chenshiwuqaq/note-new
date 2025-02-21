@@ -2,8 +2,8 @@ package org.ash.demos.Service;
 
 import org.ash.demos.DTO.UserDTO;
 import org.ash.demos.Mapper.UserMapper;
-import org.ash.demos.utils.JwtUtil;
-import org.ash.demos.utils.ThreadLocalUtils;
+import org.com.utils.JwtUtil;
+import org.com.utils.ThreadLocalUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,11 +69,7 @@ public class UserServiceImpl implements UserService{
             return "账户不存在";
         }
         else if(password.equals(SearchPassword)){
-            Map<String,Object> claims=new HashMap<>();
-            claims.put("account",account);
-            String username=userMapper.findUsernameByAccount(account);
-            claims.put("username",username);
-            return JwtUtil.GenToken(claims);
+            return JwtUtil.genToken(account);
         }else {
             return "密码错误";
         }

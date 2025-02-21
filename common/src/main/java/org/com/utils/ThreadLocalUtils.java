@@ -1,4 +1,4 @@
-package org.ash.demos.utils;
+package org.com.utils;
 
 public class ThreadLocalUtils {
     private static final ThreadLocal  threadLocal = new ThreadLocal<>();

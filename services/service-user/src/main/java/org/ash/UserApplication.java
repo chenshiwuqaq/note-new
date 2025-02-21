@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("org.ash.demos.Mapper")
-public class NoteApplication {
+public class UserApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(NoteApplication.class, args);
+        SpringApplication.run(UserApplication.class, args);
     }
 
 }

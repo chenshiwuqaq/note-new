@@ -11,6 +11,7 @@
         <module name="service-picture" />
         <module name="service-todo" />
         <module name="service-setting" />
+        <module name="common" />
         <module name="service-user" />
       </profile>
     </annotationProcessing>

@@ -1,15 +1,12 @@
 package org.ash.demos.Controller;
 
+import org.com.Entity.Result;
 import org.ash.demos.DTO.LoginDTO;
 import org.ash.demos.DTO.UserDTO;
-import org.ash.demos.Entity.Result;
 import org.ash.demos.Service.UserServiceImpl;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-
-
 @RestController
 @RequestMapping("/user")
 public class UserController {

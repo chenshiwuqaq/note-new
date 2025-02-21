@@ -11,7 +11,7 @@ spring:
   application:
     name: service-todo
   datasource:
-    url: jdbc:mysql://localhost:3306/note?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/todo?serverTimezone=UTC
     username: root
     password: 20050702cj
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -32,7 +32,7 @@ springdoc:
     - group: 'chen'
       paths-to-match: '/**'
       #生成文档所需的扫包路径，一般为启动类目录
-      packages-to-scan: com.example.note
+      packages-to-scan: org.ash
 
 #knife4j配置
 knife4j:
