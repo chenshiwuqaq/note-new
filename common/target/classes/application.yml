@@ -1,23 +1,18 @@
-#springdoc:
-#  swagger-ui:
-#    path: /swagger-ui.html
-#    tags-sorter: alpha
-#    operations-sorter: alpha
-#  api-docs:
-#    path: /v3/api-docs
-#  group-configs:
-#    - group: 'default'
-#      paths-to-match: '/**'
-#      packages-to-scan: org.ash
-#
-#knife4j:
-#  enable: true
-#  production: false
-#  basic:
-#    enable: true
-#    username: chen
-#    password: 123456
-#  setting:
-#    language: zh_cn
-#    enable-version: true
-#    enable-swagger-models: true
+server:
+  port: 8005
+
+spring:
+  application:
+    name: common
+  datasource:
+    url: jdbc:mysql://localhost:3306/todo?serverTimezone=UTC
+    username: root
+    password: 20050702cj
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate.ddl-auto: update
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
