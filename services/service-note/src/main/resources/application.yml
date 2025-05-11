@@ -1,6 +1,5 @@
 server:
   port: 8003
-
 spring:
   cloud:
     nacos:
@@ -11,7 +10,7 @@ spring:
   application:
     name: service-note
   datasource:
-    url: jdbc:mysql://localhost:3306/note?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/article?serverTimezone=UTC
     username: root
     password: 20050702cj
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -33,7 +32,13 @@ springdoc:
       paths-to-match: '/**'
       #生成文档所需的扫包路径，一般为启动类目录
       packages-to-scan: com.example.note
-
+# 阿里云 OSS 配置
+aliyun:
+  oss:
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    access-key-id: LTAI5t9VTbZhqBZfJaSwzCkg
+    access-key-secret: SnPy6YT8LTshCKS3MH2i4Yhwz9ICGN
+    bucket-name: note-flow # 默认存储桶
 #knife4j配置
 knife4j:
   #是否启用增强设置

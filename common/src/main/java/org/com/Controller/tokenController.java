@@ -2,12 +2,14 @@ package org.com.Controller;
 
 import org.com.Entity.TokenDTO;
 import org.com.Service.TokenServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
 @RequestMapping("token")
 public class tokenController {
+    @Autowired
     final
     TokenServiceImpl tokenService;
 

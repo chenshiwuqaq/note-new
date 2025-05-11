@@ -1,4 +1,4 @@
-package org.ash.demos.interceptors;
+package org.ash.interceptors;
 
 import org.com.utils.JwtUtil;
 import org.com.utils.ThreadLocalUtils;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.util.Map;
+
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
