@@ -6,16 +6,17 @@ import lombok.Setter;
 @Setter
 @Getter
 public class NodeAddDto {
-    private int parentId;
+    private long parentId;
     private int depth;
     private String nodeLabel;
-    private int UserAccount;
-
-    public NodeAddDto(int nodeId, int parentId, int depth, String nodeLabel, int userAccount) {
+    private int userAccount;
+    private long nodeId;
+    public NodeAddDto(long nodeId, int parentId, int depth, String nodeLabel, int userAccount) {
         this.parentId = parentId;
         this.depth = depth;
         this.nodeLabel = nodeLabel;
-        UserAccount = userAccount;
+        this.userAccount = userAccount;
+        this.nodeId = nodeId;
     }
 
     public NodeAddDto() {

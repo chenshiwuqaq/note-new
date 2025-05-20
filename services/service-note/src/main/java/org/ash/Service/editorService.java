@@ -15,4 +15,6 @@ public interface editorService {
     Result handleFileUpload(MultipartFile file,int nodeId);
     boolean addNode(NodeAddDto nodeAddDto);
     boolean nodeEdit(String nodeLabel,long nodeId);
+    String getFileContent(long nodeId);
+    boolean deleteNode(long nodeId);
 }

@@ -15,11 +15,11 @@ public class TreeRelation {
 
     @Id
     @Column(name = "ancestor")
-    private int ancestor;
+    private long ancestor;
 
     @Id
     @Column(name = "descendant")
-    private int descendant;
+    private long descendant;
 
     @Column(name = "depth")
     private int depth;

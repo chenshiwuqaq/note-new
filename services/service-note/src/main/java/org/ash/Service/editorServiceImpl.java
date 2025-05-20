@@ -21,7 +21,7 @@ import java.util.Set;
 public class editorServiceImpl implements editorService{
     @Autowired
     private AliyunOssUtils aliyunOssUtil;
-    private Set<Integer> visitedNodes = new HashSet<>();
+    private Set<Long> visitedNodes = new HashSet<>();
     private final TreeNodeMapper treeNodeMapper;
 
     public editorServiceImpl(TreeNodeMapper treeNodeMapper) {
@@ -76,13 +76,10 @@ public class editorServiceImpl implements editorService{
             return Result.error("文件不能为空");
         }
         try {
-            // 生成唯一的文件名
-            String uniqueFileName = aliyunOssUtil.generateUniqueFileName(file.getOriginalFilename());
-
             // 文件在 OSS 中的路径（如 "uploads/first.md"）
-            String filePath = "uploads/" + uniqueFileName;
-
+            String filePath = "uploads/" + nodeId;
             // 上传文件到阿里云 OSS
+            System.out.println("上传文件: " + filePath);
             String fileUrl = aliyunOssUtil.uploadFile(file, filePath);
             saveFileUrl(nodeId, fileUrl);
             return Result.success(fileUrl);
@@ -95,11 +92,16 @@ public class editorServiceImpl implements editorService{
     public boolean addNode(NodeAddDto nodeAddDto) {
         SnowflakeIdGenerator idGenerator = new SnowflakeIdGenerator(1, 1);
         long nodeId = idGenerator.nextId();
-        if(treeNodeMapper.addNode(nodeId,nodeAddDto.getNodeLabel(),nodeAddDto.getUserAccount())){
-            treeNodeMapper.addNodeRelation(nodeAddDto.getParentId(),nodeId,nodeAddDto.getDepth(),nodeAddDto.getUserAccount());
-            return true;
+        if(nodeAddDto.getParentId() == 0L){
+            return treeNodeMapper.addNode(nodeId,nodeAddDto.getNodeLabel(),nodeAddDto.getUserAccount())
+                    &&treeNodeMapper.addNodeRelation(nodeId,nodeId,nodeAddDto.getDepth(),
+                    nodeAddDto.getUserAccount());
         }
-        return false;
+        else {
+            return treeNodeMapper.addNode(nodeId, nodeAddDto.getNodeLabel(), nodeAddDto.getUserAccount())
+                    && treeNodeMapper.addNodeRelation(nodeAddDto.getParentId(), nodeId, nodeAddDto.getDepth(),
+                    nodeAddDto.getUserAccount());
+        }
     }
 
     @Override
@@ -107,7 +109,18 @@ public class editorServiceImpl implements editorService{
         return treeNodeMapper.setNodeLabelById(nodeLabel,nodeId);
     }
 
-    public  Node buildTree(int nodeId,String label){
+    @Override
+    public String getFileContent(long nodeId) {
+        String nodeIdStr = "uploads/" + nodeId;
+        return aliyunOssUtil.getFileContent(nodeIdStr);
+    }
+
+    @Override
+    public boolean deleteNode(long nodeId) {
+        return treeNodeMapper.deleteNodeRelation(nodeId) && treeNodeMapper.deleteNodeById(nodeId);
+    }
+
+    public  Node buildTree(long nodeId,String label){
         Node node = new Node(nodeId,label);
         buildTreeRecursive(node,label);
         return node;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="todo@localhost">
+<dataSource name="article@localhost">
   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.51">
     <root id="1">
       <DefaultCasing>lower/lower</DefaultCasing>
@@ -782,6 +782,8 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8_general_ci</CollationName>
     </schema>
     <schema id="226" parent="1" name="article">
+      <Current>1</Current>
+      <LastIntrospectionLocalTimestamp>2025-05-13.12:16:03</LastIntrospectionLocalTimestamp>
       <CollationName>utf8_general_ci</CollationName>
     </schema>
     <schema id="227" parent="1" name="blossom">
@@ -799,39 +801,122 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <schema id="231" parent="1" name="note">
       <CollationName>utf8_general_ci</CollationName>
     </schema>
-    <schema id="232" parent="1" name="performance_schema">
+    <schema id="232" parent="1" name="note_picture">
       <CollationName>utf8_general_ci</CollationName>
     </schema>
-    <schema id="233" parent="1" name="pfm_jg">
+    <schema id="233" parent="1" name="performance_schema">
       <CollationName>utf8_general_ci</CollationName>
     </schema>
-    <schema id="234" parent="1" name="pfm_tm">
+    <schema id="234" parent="1" name="pfm_jg">
       <CollationName>utf8_general_ci</CollationName>
     </schema>
-    <schema id="235" parent="1" name="pta">
+    <schema id="235" parent="1" name="pfm_tm">
       <CollationName>utf8_general_ci</CollationName>
     </schema>
-    <schema id="236" parent="1" name="student">
+    <schema id="236" parent="1" name="pta">
       <CollationName>utf8_general_ci</CollationName>
     </schema>
-    <schema id="237" parent="1" name="sys">
+    <schema id="237" parent="1" name="student">
       <CollationName>utf8_general_ci</CollationName>
     </schema>
-    <schema id="238" parent="1" name="test">
+    <schema id="238" parent="1" name="sys">
       <CollationName>utf8_general_ci</CollationName>
     </schema>
-    <schema id="239" parent="1" name="todo">
-      <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2025-05-11.09:52:59</LastIntrospectionLocalTimestamp>
+    <schema id="239" parent="1" name="test">
       <CollationName>utf8_general_ci</CollationName>
     </schema>
-    <user id="240" parent="1" name="root"/>
-    <user id="241" parent="1" name="mysql.session">
+    <schema id="240" parent="1" name="todo">
+      <CollationName>utf8_general_ci</CollationName>
+    </schema>
+    <user id="241" parent="1" name="root"/>
+    <user id="242" parent="1" name="mysql.session">
       <Host>localhost</Host>
     </user>
-    <user id="242" parent="1" name="mysql.sys">
+    <user id="243" parent="1" name="mysql.sys">
       <Host>localhost</Host>
     </user>
-    <user id="243" parent="1" name="trinity"/>
+    <user id="244" parent="1" name="trinity"/>
+    <table id="245" parent="226" name="tree_nodes">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8_general_ci</CollationName>
+    </table>
+    <table id="246" parent="226" name="tree_relation">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8_general_ci</CollationName>
+    </table>
+    <column id="247" parent="245" name="node_id">
+      <DasType>bigint(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="248" parent="245" name="node_label">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="249" parent="245" name="article_content_url">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="250" parent="245" name="user_account">
+      <DasType>int(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <index id="251" parent="245" name="PRIMARY">
+      <ColNames>node_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="252" parent="245" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="253" parent="246" name="ancestor">
+      <DasType>bigint(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="254" parent="246" name="descendant">
+      <DasType>bigint(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="255" parent="246" name="depth">
+      <DasType>int(11)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="256" parent="246" name="user_account">
+      <DasType>int(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <foreign-key id="257" parent="246" name="tree_relation_ibfk_1">
+      <ColNames>ancestor</ColNames>
+      <RefColNames>node_id</RefColNames>
+      <RefTableName>tree_nodes</RefTableName>
+    </foreign-key>
+    <foreign-key id="258" parent="246" name="tree_relation_ibfk_2">
+      <ColNames>descendant</ColNames>
+      <RefColNames>node_id</RefColNames>
+      <RefTableName>tree_nodes</RefTableName>
+    </foreign-key>
+    <index id="259" parent="246" name="PRIMARY">
+      <ColNames>ancestor
+descendant</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="260" parent="246" name="tree_relation_ibfk_2">
+      <ColNames>descendant</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="261" parent="246" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
   </database-model>
 </dataSource>

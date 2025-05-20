@@ -26,8 +26,16 @@ public class editorController {
     public Result addNode(@RequestBody NodeAddDto node){
         return Result.success(editorService.addNode(node));
     }
-    @PostMapping("/NodeEdit")
+    @PostMapping("/NodeUpdate")
     public Result editNode(@RequestBody NodeEditDto node){
         return Result.success(editorService.nodeEdit(node.getNodeLabel(), node.getNodeId()));
+    }
+    @PostMapping("/getFile")
+    public Result getFile(@RequestParam("nodeId") long nodeId){
+        return Result.success(editorService.getFileContent(nodeId));
+    }
+    @PostMapping("/NodeDelete")
+    public Result deleteNode(@RequestParam("nodeId") long nodeId){
+        return Result.success(editorService.deleteNode(nodeId));
     }
 }

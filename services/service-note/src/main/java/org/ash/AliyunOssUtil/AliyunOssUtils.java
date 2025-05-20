@@ -1,14 +1,20 @@
 package org.ash.AliyunOssUtil;
 
+import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
+import com.aliyun.oss.OSSException;
+import com.aliyun.oss.model.GetObjectRequest;
+import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.PutObjectRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.UUID;
 
 @Component
@@ -61,5 +67,24 @@ public class AliyunOssUtils {
      */
     public String generateUniqueFileName(String originalFilename) {
         return UUID.randomUUID().toString() + "-" + originalFilename;
+    }
+    //这里的filename就指node的id
+    public String getFileContent(String filePath) {
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+        try {
+            OSSObject ossObject = ossClient.getObject(new GetObjectRequest(bucketName, filePath));
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(ossObject.getObjectContent()))) {
+                StringBuilder content = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    content.append(line).append("\n");
+                }
+                return content.toString();
+            }
+        } catch (OSSException | ClientException | IOException e) {
+            return null;
+        } finally {
+            ossClient.shutdown();
+        }
     }
 }
