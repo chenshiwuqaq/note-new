@@ -1,29 +1,23 @@
 package org.ash.DTO;
 import lombok.Getter;
 import lombok.Setter;
-
+import java.io.Serializable;
 import java.time.LocalDateTime;
+
 @Setter
 @Getter
-public class TodoDTO {
+public class TodoDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private long todoId;
-
     private String todoStatus;
-
     private String taskTitle;
-
     private String taskContent;
-
     private String taskTags;
-
     private LocalDateTime startTime;
-
     private LocalDateTime endTime;
-
     private long userAccount;
-
     private LocalDateTime createTime;
-
     private String priority;
 
     public TodoDTO(long todoId, String todoStatus, String taskTitle, String taskContent, String taskTags, LocalDateTime startTime, LocalDateTime endTime, long userAccount, LocalDateTime createTime, String priority) {
@@ -38,6 +32,7 @@ public class TodoDTO {
         this.createTime = createTime;
         this.priority = priority;
     }
+    
     public TodoDTO() {
     }
 

@@ -27,4 +27,6 @@ public interface TodoMapper {
     boolean changeStatusToProcessById(@Param("id") long id);
     @Update("UPDATE todos SET todo_status = '完成' WHERE todo_id = #{id}")
     boolean changeStatusToCompleteById(@Param("id") long id);
+    @Delete("DELETE FROM todos WHERE todo_id = #{id}")
+    boolean deleteTodoById(@Param("id") long id);
 }

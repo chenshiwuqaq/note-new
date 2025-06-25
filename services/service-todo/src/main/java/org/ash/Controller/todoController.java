@@ -4,13 +4,8 @@ import org.ash.DTO.ChangeStatusDTO;
 import org.ash.DTO.TodoDTO;
 import org.ash.Service.TodoServiceImpl;
 import org.com.Entity.Result;
-import org.com.utils.DateUtils;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @RestController
 @RequestMapping("/todo")
@@ -38,6 +33,7 @@ public class todoController {
     @GetMapping("/getTodayTodoByAccount")
     public Result getTodayTodoByAccount(
             @RequestParam("account") long account, @RequestParam LocalDateTime date) {
+        System.out.println(todoService.getTodayTodoByAccount(account, date).toString());
         return Result.success(todoService.getTodayTodoByAccount(account, date));
     }
     @GetMapping("/getMilestones")
@@ -51,5 +47,9 @@ public class todoController {
     @PostMapping("/changeStatusById")
     public Result changeStatusById(@RequestBody ChangeStatusDTO changeStatusDTO){
         return Result.success(todoService.changeStatusById(changeStatusDTO.getIds(), changeStatusDTO.getStatus()));
+    }
+    @PostMapping("/deleteTodo")
+    public Result deleteTodo(@RequestBody long[] ids){
+        return Result.success(todoService.deleteTodo(ids));
     }
 }

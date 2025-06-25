@@ -11,7 +11,7 @@ spring:
   application:
     name: service-picture
   datasource:
-    url: jdbc:mysql://localhost:3306/note?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/note_picture?serverTimezone=UTC
     username: root
     password: 20050702cj
     driver-class-name: com.mysql.cj.jdbc.Driver

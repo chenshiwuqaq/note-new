@@ -4,6 +4,8 @@ import org.ash.DTO.TodoDTO;
 import org.ash.Mapper.TodoMapper;
 import org.com.utils.DateUtils;
 import org.com.utils.IdUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -18,46 +20,67 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
+    @Cacheable(value = "todo", key = "#todoId")
     public TodoDTO getTodo(long todoId) {
         return todoMapper.selectTodoById(todoId);
     }
 
     @Override
+    @Cacheable(value = "todoList", key = "#taskStatus")
     public List<TodoDTO> getTodoByStatus(String taskStatus) {
         return todoMapper.selectTodoByStatus(taskStatus);
     }
 
     @Override
+    @Cacheable(value = "todoList", key = "'all'")
     public List<TodoDTO> getAllTodo() {
         return todoMapper.getALlTodo();
     }
 
     @Override
+    @Cacheable(value = "todoList", key = "#account + '-' + #date")
     public List<TodoDTO> getTodayTodoByAccount(long account, LocalDateTime date) {
         List<TodoDTO> todayTodos = new ArrayList<>();
         List<LocalDateTime> dateRange = DateUtils.getDayRange(date); // 获取当天时间区间
+        LocalDateTime startOfDay = dateRange.get(0);
+        LocalDateTime endOfDay = dateRange.get(1);
+
+        System.out.println("查询日期范围：" + startOfDay + " 到 " + endOfDay);
 
         List<TodoDTO> todos = todoMapper.getTodoByAccount(account);
+        System.out.println("获取到的所有待办数量：" + todos.size());
+
         for (TodoDTO todo : todos) {
             LocalDateTime taskStart = todo.getStartTime();
             LocalDateTime taskEnd = todo.getEndTime();
 
-            // 判断任务时间是否与当天有交集，增加空值校验
+            // 判断任务时间是否与当天有交集
             if (taskStart != null && taskEnd != null) {
-                boolean isOverlap = taskStart.isBefore(dateRange.get(1)) &&
-                        taskEnd.isAfter(dateRange.get(0));
-                if (isOverlap) {
+                // 判断任务是否在今天：
+                // 1. 任务开始时间在今天结束时间之前
+                // 2. 任务结束时间在今天开始时间之后
+                boolean isToday = (taskStart.isBefore(endOfDay) || taskStart.isEqual(endOfDay)) && 
+                                (taskEnd.isAfter(startOfDay) || taskEnd.isEqual(startOfDay));
+                
+                System.out.println("待办ID: " + todo.getTodoId() + 
+                    ", 开始时间: " + taskStart + 
+                    ", 结束时间: " + taskEnd + 
+                    ", 是否在今天: " + isToday);
+
+                if (isToday) {
                     todayTodos.add(todo);
                 }
             } else {
-                // 可选：记录日志或跳过该条数据
                 System.out.println("任务的开始或结束时间为 null，跳过：" + todo.getTodoId());
             }
         }
+        
+        System.out.println("今日待办数量：" + todayTodos.size());
         return todayTodos;
     }
 //阶段性事项
 @Override
+@Cacheable(value = "todoList", key = "'milestones-' + #account")
 public List<TodoDTO> getMilestones(long account) {
     List<TodoDTO> milestones = new ArrayList<>();
     List<LocalDateTime> calendars = getCalendar(); // 获取今天和明天的日期时间
@@ -75,6 +98,7 @@ public List<TodoDTO> getMilestones(long account) {
 }
 
     @Override
+    @CacheEvict(value = {"todo", "todoList"}, allEntries = true)
     public boolean addTodo(TodoDTO todoDTO) {
         System.out.println(todoDTO.toString());
         while (true){
@@ -87,6 +111,7 @@ public List<TodoDTO> getMilestones(long account) {
     }
 
     @Override
+    @CacheEvict(value = {"todo", "todoList"}, allEntries = true)
     public boolean changeStatusById(long[] ids,String status) {
         for (long id : ids){
             if ("待办".equals(status)){
@@ -98,6 +123,18 @@ public List<TodoDTO> getMilestones(long account) {
             }
         }
         return false;
+    }
+
+    @Override
+    @CacheEvict(value = {"todo", "todoList"}, allEntries = true)
+    public boolean deleteTodo(long[] ids) {
+        boolean flag = true;
+        for (long id : ids){
+            if (todoMapper.deleteTodoById(id)){
+                flag = false;
+            }
+        }
+        return flag;
     }
 
     public List<LocalDateTime> getCalendar() {

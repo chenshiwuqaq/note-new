@@ -15,12 +15,39 @@ spring:
     username: root
     password: 20050702cj
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      idle-timeout: 30000
+      pool-name: HikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 
+      database: 0
+      timeout: 10000
+      lettuce:
+        pool:
+          max-active: 8
+          max-wait: -1
+          max-idle: 8
+          min-idle: 0
   jpa:
-    hibernate.ddl-auto: update
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
   servlet:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
@@ -31,16 +58,11 @@ springdoc:
   group-configs:
     - group: 'chen'
       paths-to-match: '/**'
-      #生成文档所需的扫包路径，一般为启动类目录
       packages-to-scan: org.ash
 
-#knife4j配置
 knife4j:
-  #是否启用增强设置
   enable: true
-  #开启生产环境屏蔽
   production: false
-  #是否启用登录认证
   basic:
     enable: true
     username: chen
@@ -50,7 +72,7 @@ knife4j:
     enable-version: true
     enable-swagger-models: true
     swagger-model-name: 用户模块
-#spring.jpa.show-sql=true
-#???sql
-#spring.jpa.properties.hibernate.format_sql=true;
-#???????????????
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
