@@ -1,0 +1,88 @@
+// 根项目/build.gradle
+buildscript {
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/spring' }
+    }
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:3.2.0'
+        classpath 'io.spring.gradle:dependency-management-plugin:1.1.4'
+    }
+}
+
+plugins {
+    id 'groovy-gradle-plugin'
+}
+
+// 所有项目通用配置（包括根项目和所有子项目）
+allprojects {
+    group = 'org.ash'
+    version = '1.0.0'
+
+    repositories {
+        mavenCentral()
+        maven { url "https://maven.aliyun.com/repository/public" }
+        maven { url "https://maven.aliyun.com/nexus/content/groups/public/" }
+    }
+}
+
+// 子项目专用配置（区分common和其他服务）
+subprojects {
+    // 所有子项目通用的JDK配置
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+
+    // 区分common和其他服务模块
+    if (project.name == 'common') {
+        // common模块单独配置（已在自身build.gradle中定义，这里无需重复）
+    } else {
+        // 非common的服务模块（service-xxx）配置
+        apply plugin: 'java'
+        apply plugin: 'org.springframework.boot'
+        apply plugin: 'io.spring.dependency-management'
+
+        dependencyManagement {
+            imports {
+                mavenBom "org.springframework.cloud:spring-cloud-dependencies:2023.0.4"
+                mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:2022.0.0.0-RC2"
+            }
+        }
+
+        dependencies {
+            // 服务模块需要的依赖（web、cloud组件等）
+            implementation 'org.springframework.boot:spring-boot-starter-web'
+            implementation 'org.springframework.boot:spring-boot-starter-actuator'
+            implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+            implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+            implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+            implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+
+            implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
+            implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
+            implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
+
+            implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+            runtimeOnly 'com.mysql:mysql-connector-j'
+
+            implementation 'org.projectlombok:lombok:1.18.30'
+            annotationProcessor 'org.projectlombok:lombok:1.18.30'
+            implementation 'org.apache.commons:commons-pool2:2.12.0'
+
+            implementation 'com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter:4.4.0'
+            implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+
+            implementation 'com.auth0:java-jwt:4.4.0'
+            implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+            implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+            implementation 'com.aliyun.oss:aliyun-sdk-oss:3.3.0'
+
+            testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        }
+
+        test {
+            useJUnitPlatform()
+        }
+    }
+}

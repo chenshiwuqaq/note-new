@@ -783,7 +783,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </schema>
     <schema id="226" parent="1" name="article">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2025-05-13.12:16:03</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-07-17.09:18:48</LastIntrospectionLocalTimestamp>
       <CollationName>utf8_general_ci</CollationName>
     </schema>
     <schema id="227" parent="1" name="blossom">
@@ -836,84 +836,93 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Host>localhost</Host>
     </user>
     <user id="244" parent="1" name="trinity"/>
-    <table id="245" parent="226" name="tree_nodes">
+    <table id="245" parent="226" name="daily_word_count">
       <Engine>InnoDB</Engine>
       <CollationName>utf8_general_ci</CollationName>
     </table>
-    <table id="246" parent="226" name="tree_relation">
+    <table id="246" parent="226" name="tree_nodes">
       <Engine>InnoDB</Engine>
       <CollationName>utf8_general_ci</CollationName>
     </table>
-    <column id="247" parent="245" name="node_id">
-      <DasType>bigint(20)|0s</DasType>
+    <table id="247" parent="226" name="tree_relation">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8_general_ci</CollationName>
+    </table>
+    <column id="248" parent="245" name="time">
+      <Comment>今日日期</Comment>
+      <DasType>datetime|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="249" parent="245" name="word_count">
+      <Comment>每日字数统计</Comment>
+      <DasType>varchar(255)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="250" parent="245" name="account">
+      <Comment>账户</Comment>
+      <DasType>varchar(255)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="251" parent="246" name="node_id">
+      <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="248" parent="245" name="node_label">
+    <column id="252" parent="246" name="node_label">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="249" parent="245" name="article_content_url">
+    <column id="253" parent="246" name="article_content_url">
       <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="250" parent="245" name="user_account">
-      <DasType>int(255)|0s</DasType>
+    <column id="254" parent="246" name="user_account">
+      <DasType>bigint(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <index id="251" parent="245" name="PRIMARY">
+    <index id="255" parent="246" name="PRIMARY">
       <ColNames>node_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="252" parent="245" name="PRIMARY">
+    <key id="256" parent="246" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="253" parent="246" name="ancestor">
-      <DasType>bigint(20)|0s</DasType>
+    <column id="257" parent="247" name="ancestor">
+      <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="254" parent="246" name="descendant">
-      <DasType>bigint(20)|0s</DasType>
+    <column id="258" parent="247" name="descendant">
+      <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="255" parent="246" name="depth">
+    <column id="259" parent="247" name="depth">
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="256" parent="246" name="user_account">
-      <DasType>int(255)|0s</DasType>
+    <column id="260" parent="247" name="user_account">
+      <DasType>bigint(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <foreign-key id="257" parent="246" name="tree_relation_ibfk_1">
-      <ColNames>ancestor</ColNames>
-      <RefColNames>node_id</RefColNames>
-      <RefTableName>tree_nodes</RefTableName>
-    </foreign-key>
-    <foreign-key id="258" parent="246" name="tree_relation_ibfk_2">
-      <ColNames>descendant</ColNames>
-      <RefColNames>node_id</RefColNames>
-      <RefTableName>tree_nodes</RefTableName>
-    </foreign-key>
-    <index id="259" parent="246" name="PRIMARY">
+    <index id="261" parent="247" name="PRIMARY">
       <ColNames>ancestor
 descendant</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="260" parent="246" name="tree_relation_ibfk_2">
+    <index id="262" parent="247" name="tree_relation_ibfk_2">
       <ColNames>descendant</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="261" parent="246" name="PRIMARY">
+    <key id="263" parent="247" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>

@@ -12,16 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class editorServiceImpl implements editorService{
     @Autowired
     private AliyunOssUtils aliyunOssUtil;
-    private Set<Long> visitedNodes = new HashSet<>();
+    private Set<String> visitedNodes = new HashSet<>();
     private final TreeNodeMapper treeNodeMapper;
 
     public editorServiceImpl(TreeNodeMapper treeNodeMapper) {
@@ -29,7 +26,7 @@ public class editorServiceImpl implements editorService{
     }
 
     @Override
-    public List<Node> uploadTree(int account) {
+    public List<Node> uploadTree(long account) {
         visitedNodes.clear();
         List<TreeRelation> RootNodes =treeNodeMapper.findRootNodeByAccount(account);
         List<Node> rootNodes = new ArrayList<>();
@@ -54,7 +51,7 @@ public class editorServiceImpl implements editorService{
         List<TreeRelation> relations = treeNodeMapper.findByAncestor(parentNode.getId());
         for (TreeRelation relation : relations) {
             // 跳过自身节点
-            if (relation.getDescendant() == parentNode.getId()) {
+            if (Objects.equals(relation.getDescendant(), parentNode.getId())) {
                 continue;
             }
             // 创建子节点
@@ -66,12 +63,12 @@ public class editorServiceImpl implements editorService{
     }
 
     @Override
-    public boolean saveFileUrl(int nodeId, String fileUrl) {
+    public boolean saveFileUrl(String nodeId, String fileUrl) {
         return treeNodeMapper.SetFileUrlByNodeId(nodeId, fileUrl);
     }
 
     @Override
-    public Result handleFileUpload(MultipartFile file,int nodeId) {
+    public Result handleFileUpload(MultipartFile file,String nodeId) {
         if (file.isEmpty()) {
             return Result.error("文件不能为空");
         }
@@ -91,8 +88,9 @@ public class editorServiceImpl implements editorService{
     @Override
     public boolean addNode(NodeAddDto nodeAddDto) {
         SnowflakeIdGenerator idGenerator = new SnowflakeIdGenerator(1, 1);
-        long nodeId = idGenerator.nextId();
-        if(nodeAddDto.getParentId() == 0L){
+        long nodeIdNumber = idGenerator.nextId();
+        String nodeId = String.valueOf(nodeIdNumber);
+        if("0".equals(nodeAddDto.getParentId())){
             return treeNodeMapper.addNode(nodeId,nodeAddDto.getNodeLabel(),nodeAddDto.getUserAccount())
                     &&treeNodeMapper.addNodeRelation(nodeId,nodeId,nodeAddDto.getDepth(),
                     nodeAddDto.getUserAccount());
@@ -105,22 +103,22 @@ public class editorServiceImpl implements editorService{
     }
 
     @Override
-    public boolean nodeEdit(String nodeLabel,long nodeId) {
+    public boolean nodeEdit(String nodeLabel,String nodeId) {
         return treeNodeMapper.setNodeLabelById(nodeLabel,nodeId);
     }
 
     @Override
-    public String getFileContent(long nodeId) {
+    public String getFileContent(String nodeId) {
         String nodeIdStr = "uploads/" + nodeId;
         return aliyunOssUtil.getFileContent(nodeIdStr);
     }
 
     @Override
-    public boolean deleteNode(long nodeId) {
+    public boolean deleteNode(String nodeId) {
         return treeNodeMapper.deleteNodeRelation(nodeId) && treeNodeMapper.deleteNodeById(nodeId);
     }
 
-    public  Node buildTree(long nodeId,String label){
+    public  Node buildTree(String nodeId,String label){
         Node node = new Node(nodeId,label);
         buildTreeRecursive(node,label);
         return node;

@@ -1,0 +1,11 @@
+
+
+rootProject.name = 'note-demos'
+include(':services')
+include(':common')
+
+include(':services:service-note')
+include(':services:service-setting')
+include(':services:service-picture')
+include(':services:service-todo')
+include(':services:service-user')

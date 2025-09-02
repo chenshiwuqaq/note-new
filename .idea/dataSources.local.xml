@@ -3,7 +3,11 @@
   <component name="dataSourceStorageLocal" created-in="IU-233.15619.7">
     <data-source name="todo@localhost" uuid="fd64b174-152f-4f33-8a8c-889293e873ce">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" />
-      <schema-mapping />
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" qname="@" />
+        </introspection-scope>
+      </schema-mapping>
     </data-source>
     <data-source name="article@localhost" uuid="de552b12-8943-421b-bb2d-5b704491c76a">
       <database-info product="MySQL" version="5.7.42" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-j-8.2.0 (Revision: 06a1f724497fd81c6a659131fda822c9e5085b6c)" dbms="MYSQL" exact-version="5.7.42" exact-driver-version="8.2">

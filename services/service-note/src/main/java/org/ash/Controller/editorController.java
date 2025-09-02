@@ -15,11 +15,11 @@ public class editorController {
     @Autowired
     private editorServiceImpl editorService;
     @PostMapping("/onSave")
-    public Result handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("nodeId") int nodeId) {
+    public Result handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("nodeId") String nodeId) {
         return editorService.handleFileUpload(file,nodeId);
     }
     @GetMapping("/onLoad")
-    public Result loadTree(@Param("account") int account){
+    public Result loadTree(@Param("account") long account){
         return Result.success(editorService.uploadTree(account));
     }
     @PostMapping("/NodeAdd")
@@ -31,11 +31,11 @@ public class editorController {
         return Result.success(editorService.nodeEdit(node.getNodeLabel(), node.getNodeId()));
     }
     @PostMapping("/getFile")
-    public Result getFile(@RequestParam("nodeId") long nodeId){
+    public Result getFile(@RequestParam("nodeId") String nodeId){
         return Result.success(editorService.getFileContent(nodeId));
     }
     @PostMapping("/NodeDelete")
-    public Result deleteNode(@RequestParam("nodeId") long nodeId){
+    public Result deleteNode(@RequestParam("nodeId") String nodeId){
         return Result.success(editorService.deleteNode(nodeId));
     }
 }

@@ -45,7 +45,6 @@ public class AliyunOssUtils {
 
         try (InputStream inputStream = file.getInputStream()) {
             // 打印文件信息
-            System.out.println("上传文件: " + filePath);
             System.out.println("文件大小: " + file.getSize() + " bytes");
 
             // 上传文件
@@ -73,6 +72,7 @@ public class AliyunOssUtils {
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
         try {
             OSSObject ossObject = ossClient.getObject(new GetObjectRequest(bucketName, filePath));
+            System.out.println("filePath" + filePath);
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(ossObject.getObjectContent()))) {
                 StringBuilder content = new StringBuilder();
                 String line;

@@ -10,7 +10,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import java.util.Map;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
-    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         //令牌验证
         String token = request.getHeader("Authorization");
@@ -25,7 +24,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
     }
 
-    @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         ThreadLocalUtils.remove();
     }

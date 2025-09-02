@@ -9,12 +9,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface editorService {
-    List<Node> uploadTree(int account);
+    List<Node> uploadTree(long account);
     void buildTreeRecursive(Node node, String label);
-    boolean saveFileUrl(int nodeId,String fileUrl);
-    Result handleFileUpload(MultipartFile file,int nodeId);
+    boolean saveFileUrl(String nodeId,String fileUrl);
+    Result handleFileUpload(MultipartFile file,String nodeId);
     boolean addNode(NodeAddDto nodeAddDto);
-    boolean nodeEdit(String nodeLabel,long nodeId);
-    String getFileContent(long nodeId);
-    boolean deleteNode(long nodeId);
+    boolean nodeEdit(String nodeLabel,String nodeId);
+    String getFileContent(String nodeId);
+    boolean deleteNode(String nodeId);
 }

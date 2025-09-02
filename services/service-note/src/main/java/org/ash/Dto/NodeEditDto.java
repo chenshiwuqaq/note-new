@@ -7,9 +7,9 @@ import lombok.Setter;
 @Getter
 public class NodeEditDto {
     String nodeLabel;
-    long nodeId;
+    String nodeId;
 
-    public NodeEditDto(String nodeLabel, long nodeId) {
+    public NodeEditDto(String nodeLabel, String nodeId) {
         this.nodeLabel = nodeLabel;
         this.nodeId = nodeId;
     }

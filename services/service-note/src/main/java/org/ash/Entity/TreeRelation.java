@@ -15,15 +15,15 @@ public class TreeRelation {
 
     @Id
     @Column(name = "ancestor")
-    private long ancestor;
+    private String ancestor;
 
     @Id
     @Column(name = "descendant")
-    private long descendant;
+    private String descendant;
 
     @Column(name = "depth")
     private int depth;
 
     @Column(name = "user_account")
-    private String userAccount;
+    private long userAccount;
 }

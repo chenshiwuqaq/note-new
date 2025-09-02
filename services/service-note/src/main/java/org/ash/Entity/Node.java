@@ -9,11 +9,11 @@ import java.util.List;
 @Setter
 @Getter
 public class Node {
-    private long id;
+    private String id;
     private String label;
     private List<Node> children;
 
-    public Node(long nodeId, String nodeLabel) {
+    public Node(String nodeId, String nodeLabel) {
         this.id = nodeId;
         this.label = nodeLabel;
         this.children = new ArrayList<>();

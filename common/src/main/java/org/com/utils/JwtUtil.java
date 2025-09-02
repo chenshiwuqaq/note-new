@@ -2,7 +2,10 @@ package org.com.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.com.Entity.CustomTokenException;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -29,12 +32,22 @@ public class JwtUtil {
     }
     public static String verifyToken(String token) {
         // 验证 Token 并解析
-        DecodedJWT jwt = JWT.require(Algorithm.HMAC256(KEY))
+       try{ DecodedJWT jwt = JWT.require(Algorithm.HMAC256(KEY))
                 .build()
                 .verify(token);
 
         // 从载荷中获取账号
         Map<String, Object> claims = jwt.getClaim("claims").asMap();
-        return (String) claims.get("account");
+        return (String) claims.get("account");}
+       catch (TokenExpiredException ex) {
+           // 1. 专门处理Token过期情况
+           System.err.println("Token expired at: " + ex.getExpiredOn());
+           throw new CustomTokenException("TOKEN_EXPIRED", "Token已过期，请重新登录");
+       } catch (JWTVerificationException ex) {
+           // 2. 处理其他验证错误（无效签名、格式错误等）
+           System.err.println("Token verification failed: " + ex.getMessage());
+           throw new CustomTokenException("INVALID_TOKEN", "无效的Token");
+       }
     }
+
 }

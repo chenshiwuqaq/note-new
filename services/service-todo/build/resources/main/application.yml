@@ -1,0 +1,78 @@
+server:
+  port: 8000
+
+spring:
+  cloud:
+    nacos:
+      config:
+        import-check:
+          enabled: false
+      server-addr: 127.0.0.1:8848
+  application:
+    name: service-todo
+  datasource:
+    url: jdbc:mysql://localhost:3306/todo?serverTimezone=UTC
+    username: root
+    password: 20050702cj
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      idle-timeout: 30000
+      pool-name: HikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 
+      database: 0
+      timeout: 10000
+      lettuce:
+        pool:
+          max-active: 8
+          max-wait: -1
+          max-idle: 8
+          min-idle: 0
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'chen'
+      paths-to-match: '/**'
+      packages-to-scan: org.ash
+
+knife4j:
+  enable: true
+  production: false
+  basic:
+    enable: true
+    username: chen
+    password: 123456
+  setting:
+    language: zh_cn
+    enable-version: true
+    enable-swagger-models: true
+    swagger-model-name: 用户模块
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true

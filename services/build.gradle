@@ -1,0 +1,7 @@
+subprojects {
+    dependencies {
+        // 自定义公共模块
+        implementation project(':common')
+    }
+
+}

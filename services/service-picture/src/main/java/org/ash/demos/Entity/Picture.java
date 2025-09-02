@@ -2,6 +2,7 @@ package org.ash.demos.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
 import java.util.Date;
 
 @Entity

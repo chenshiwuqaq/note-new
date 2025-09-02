@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/note-demos.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/note-demos.common.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/services/service-note/note-demos.services.service-note.main.iml" filepath="$PROJECT_DIR$/.idea/modules/services/service-note/note-demos.services.service-note.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/services/service-picture/note-demos.services.service-picture.main.iml" filepath="$PROJECT_DIR$/.idea/modules/services/service-picture/note-demos.services.service-picture.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/services/service-setting/note-demos.services.service-setting.main.iml" filepath="$PROJECT_DIR$/.idea/modules/services/service-setting/note-demos.services.service-setting.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/services/service-todo/note-demos.services.service-todo.main.iml" filepath="$PROJECT_DIR$/.idea/modules/services/service-todo/note-demos.services.service-todo.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/services/service-user/note-demos.services.service-user.main.iml" filepath="$PROJECT_DIR$/.idea/modules/services/service-user/note-demos.services.service-user.main.iml" />
+    </modules>
+  </component>
+</project>

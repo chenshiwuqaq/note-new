@@ -1,0 +1,77 @@
+plugins {
+    id 'java-library'
+    id 'org.springframework.boot'  // 支持Spring Boot应用启动
+    id 'io.spring.dependency-management'  // 依赖版本管理
+}
+
+// 生成两个jar包：供其他模块依赖的标准jar和可独立启动的boot jar
+jar {
+    enabled = true
+    archiveClassifier.set('module')  // 标准模块jar命名：common-1.0.0-module.jar
+}
+
+bootJar {
+    enabled = true
+    archiveClassifier.set('boot')   // 可执行jar命名：common-1.0.0-boot.jar
+}
+
+// 继承根项目的group和version（与pom.xml的parent保持一致）
+group = 'org.ash'
+version = '1.0.0'
+
+// 依赖版本管理（对应pom中的父项目依赖管理）
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:3.2.0"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:2023.0.4"
+        mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:2022.0.0.0-RC2"
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://maven.aliyun.com/repository/public" }
+    maven { url "https://maven.aliyun.com/nexus/content/groups/public/" }
+}
+
+dependencies {
+    // Spring Boot Web依赖（对应pom中的spring-boot-starter-web）
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // R2DBC SPI依赖
+    implementation 'io.r2dbc:r2dbc-spi'
+
+    // MyBatis Spring Boot Starter（显式指定版本，与pom一致）
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
+
+    // MySQL驱动（运行时依赖）
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // Lombok（编译期注解处理，对应pom的optional=true）
+    implementation 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    // JWT工具（显式指定版本）
+    implementation 'com.auth0:java-jwt:4.4.0'
+
+    // Jakarta Persistence API（显式指定版本，与pom一致）
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.0.0'
+
+    // Hibernate Validator（版本由BOM管理）
+    implementation 'org.hibernate.validator:hibernate-validator'
+
+    // 测试依赖
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+// 编译配置（对应pom的maven-compiler-plugin）
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+test {
+    useJUnitPlatform()  // 支持JUnit 5测试
+}
+
+description = 'common'

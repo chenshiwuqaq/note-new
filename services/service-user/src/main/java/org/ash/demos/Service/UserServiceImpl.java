@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.com.utils.ThreadLocalUtils;
 import org.com.utils.JwtUtil;
 import java.security.SecureRandom;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -72,6 +71,11 @@ public class UserServiceImpl implements UserService{
         }else {
             return "密码错误";
         }
+    }
+
+    @Override
+    public String getUserName(long account) {
+        return userMapper.findUsername(account);
     }
 
 }

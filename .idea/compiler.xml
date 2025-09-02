@@ -3,19 +3,21 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+      <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
-        <module name="service-note" />
-        <module name="service-picture" />
-        <module name="service-todo" />
-        <module name="service-setting" />
-        <module name="common" />
-        <module name="service-user" />
+        <processorPath useClasspath="false">
+          <entry name="D:/GradleRepository/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.30/f195ee86e6c896ea47a1d39defbe20eb59cd149d/lombok-1.18.30.jar" />
+        </processorPath>
+        <module name="note-demos.services.service-todo.main" />
+        <module name="note-demos.services.service-setting.main" />
+        <module name="note-demos.common.main" />
+        <module name="note-demos.services.main" />
+        <module name="note-demos.services.service-picture.main" />
+        <module name="note-demos.services.service-note.main" />
+        <module name="note-demos.services.service-user.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="17">
       <module name="service-note (1)" target="17" />
     </bytecodeTargetLevel>
   </component>

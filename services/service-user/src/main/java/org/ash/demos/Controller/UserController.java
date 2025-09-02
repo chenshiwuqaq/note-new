@@ -1,9 +1,9 @@
 package org.ash.demos.Controller;
 
-import org.com.Entity.Result;
 import org.ash.demos.DTO.LoginDTO;
 import org.ash.demos.DTO.UserDTO;
 import org.ash.demos.Service.UserServiceImpl;
+import org.com.Entity.Result;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -43,5 +43,9 @@ public class UserController {
         }else{
             return Result.error("更新失败");
         }
+    }
+    @PostMapping("/getUserName")
+    public Result getUserName(@RequestParam("account") long account){
+        return Result.success(userService.getUserName(account));
     }
 }

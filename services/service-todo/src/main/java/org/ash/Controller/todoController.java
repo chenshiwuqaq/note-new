@@ -19,7 +19,6 @@ public class todoController {
 
     @GetMapping("/getTodoById")
     public Result getTodo(@RequestParam("todoId") long todoId){
-        System.out.println("2" + todoService.getTodo(todoId));
         return Result.success(todoService.getTodo(todoId));
     }
     @GetMapping("/getTodoByStatus")
@@ -33,7 +32,6 @@ public class todoController {
     @GetMapping("/getTodayTodoByAccount")
     public Result getTodayTodoByAccount(
             @RequestParam("account") long account, @RequestParam LocalDateTime date) {
-        System.out.println(todoService.getTodayTodoByAccount(account, date).toString());
         return Result.success(todoService.getTodayTodoByAccount(account, date));
     }
     @GetMapping("/getMilestones")
