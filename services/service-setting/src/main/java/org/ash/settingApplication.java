@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("org.ash.Mapper")
-public class SettingApplication {
+class SettingApplication {
     public static void main(String[] args) {
         SpringApplication.run(SettingApplication.class, args);
     }
