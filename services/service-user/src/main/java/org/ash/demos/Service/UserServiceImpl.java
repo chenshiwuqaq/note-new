@@ -21,7 +21,20 @@ public class UserServiceImpl implements UserService{
     }
     @Override
     public String register(UserDTO userDTO) {
+        String email = userDTO.getEmail();
+        String phoneNumber = userDTO.getPhoneNumber();
+
+        // 分别检查邮箱和手机号（两个都要检查）
+        if (email != null && userMapper.findEmailByEmail(email) != null) {
+            return "邮箱或手机号已被注册";
+        }
+        if (phoneNumber != null && userMapper.findPhoneNumberByPhoneNumber(phoneNumber) != null) {
+            return "邮箱或手机号已被注册";
+        }
+
+        // 3. 生成唯一账号
         String accountStr = generateUniqueAccount();
+        // 4. 注册用户
         userMapper.register(
                 accountStr,
                 userDTO.getPassword(),
@@ -29,9 +42,11 @@ public class UserServiceImpl implements UserService{
                 userDTO.getUserPic(),
                 userDTO.getUserIdentify(),
                 userDTO.getCreateTime(),
-                userDTO.getUpdateTime()
+                userDTO.getUpdateTime(),
+                email,
+                phoneNumber
         );
-        return "注册成功";
+        return accountStr;
     }
     private String generateUniqueAccount() {
         SecureRandom secureRandom = new SecureRandom();
