@@ -30,10 +30,11 @@ public class UserController {
     }
     @PostMapping("/register")
     public Result registerUser(@RequestBody UserDTO userDTO){
-        if ("注册成功".equals(userService.register(userDTO))){
-            return Result.success("注册成功");
-        }else {
-            return Result.error("注册失败");
+        String result=userService.register(userDTO);
+        if("邮箱或手机号已被注册".equals(result)){
+            return Result.error("邮箱或手机号已被注册");
+        }else{
+            return Result.success("注册成功",result);
         }
     }
     @PatchMapping("/updateAvatar")

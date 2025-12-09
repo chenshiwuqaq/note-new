@@ -37,6 +37,9 @@ public class Result<T> {
     public static <E> Result<E> success(E data){
         return new Result<E>(0,"success",data);
     }
+    public static <E> Result<E> success(String message,E data){
+        return new Result<E>(0,message,data);
+    }
     public static Result success(){
         return new Result(0,"success",null);
     }

@@ -11,11 +11,17 @@ import java.util.List;
 public interface UserMapper {
     @Select("select * from user where account=#{account}")
     user findUserByAccount(String account);
-    @Insert("insert INTO user(account,password,user_name,user_pic,user_identify,create_time,update_time) values" +
-            "(#{account}, #{password} ,#{username},#{user_pic},#{user_identify},#{create_time},#{update_time})")
+    @Insert("insert INTO user(account,password,user_name,user_pic,user_identify,create_time,update_time,email,phone_number) values" +
+            "(#{account}, #{password} ,#{username},#{user_pic},#{user_identify},#{create_time},#{update_time},#{email},#{phone_number})")
     void register(@Param("account") String account, @Param("password") String password, @Param("username") String username,
                   @Param("user_pic") String user_pic, @Param("user_identify") String user_identify, @Param("create_time") String create_time,
-                  @Param("update_time") String update_time);
+                  @Param("update_time") String update_time,@Param("email") String email,@Param("phone_number") String phone_number);
+    //查询邮箱是否已注册
+    @Select("select email from user where email = #{email}")
+    String findEmailByEmail(String email);
+    //查询手机号是否已注册
+    @Select("select phone_number from user where phone_number = #{phone_number}")
+    String findPhoneNumberByPhoneNumber(String phone_number);
     @Select("select account from user")
     List<String> searchAccount();
     @Select("select password from user where account = #{account}")
