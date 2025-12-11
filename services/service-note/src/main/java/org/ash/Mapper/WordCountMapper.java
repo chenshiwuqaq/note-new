@@ -2,6 +2,10 @@ package org.ash.Mapper;
 
 import org.apache.ibatis.annotations.*;
 import org.ash.Dto.DailyWordCountDto;
+import org.ash.Dto.FiveDailyWordCount;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Mapper
 public interface WordCountMapper {
@@ -15,4 +19,12 @@ public interface WordCountMapper {
     boolean updateWordCount(DailyWordCountDto dailyWordCountDto);
     @Select("SELECT SUM(word_count) FROM daily_word_count WHERE account = #{account}")
     int getTotalWords(@Param("account")long account);
+
+    @Select("SELECT DATE(time) AS time, word_count " +
+            "FROM daily_word_count WHERE account = #{account} " +
+            "AND DATE(time) BETWEEN #{startDate} AND #{endDate}") //筛选日期范围
+    List<FiveDailyWordCount> selectWordsByAccountAndDateRange(
+            @Param("account") long account,
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate);
 }

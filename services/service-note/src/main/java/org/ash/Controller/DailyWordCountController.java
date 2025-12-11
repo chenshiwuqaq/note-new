@@ -6,6 +6,9 @@ import org.com.Entity.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/WordCount")
 public class DailyWordCountController {
@@ -27,5 +30,9 @@ public class DailyWordCountController {
     @GetMapping("/getTotalWords")
     public int getTotalWords(@RequestParam("account")long account){
         return wordCountService.getTotalWords(account);
+    }
+    @GetMapping("/getRecentFiveDaysWords")
+    public Result  getRecentFiveDaysWords(@RequestParam("account")long account){
+        return Result.success(wordCountService.getRecentFiveDaysWords(account));
     }
 }
