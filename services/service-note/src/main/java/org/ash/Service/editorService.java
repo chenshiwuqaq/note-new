@@ -1,6 +1,7 @@
 package org.ash.Service;
 
 import org.ash.Dto.NodeAddDto;
+import org.ash.Dto.TreeNodeDto;
 import org.ash.Entity.Node;
 import org.com.Entity.Result;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,4 +18,6 @@ public interface editorService {
     boolean nodeEdit(String nodeLabel,String nodeId);
     String getFileContent(String nodeId);
     boolean deleteNode(String nodeId);
+    int NodeChangeIsCollected(String nodeId);
+    List<TreeNodeDto> getAllCollectedNode(long account);
 }

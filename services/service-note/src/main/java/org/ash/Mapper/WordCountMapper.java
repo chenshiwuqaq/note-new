@@ -6,7 +6,7 @@ import org.ash.Dto.DailyWordCountDto;
 @Mapper
 public interface WordCountMapper {
     @Select("SELECT word_count FROM daily_word_count WHERE account = #{account} AND DATE(time) = CURDATE()")
-    int getTodayWordCount(@Param("account")long account);
+    Integer getTodayWordCount(@Param("account")long account);
     @Select("SELECT COUNT(*) > 0 FROM daily_word_count WHERE account = #{account} AND DATE(time) = CURDATE()")
     boolean isExist(@Param("account") long account);
     @Insert("INSERT INTO daily_word_count (account, word_count, time) VALUES (#{account}, #{wordCount}, NOW())")

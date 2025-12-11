@@ -1,7 +1,9 @@
 package org.ash.Service;
 
+import com.alibaba.nacos.client.naming.utils.CollectionUtils;
 import org.ash.AliyunOssUtil.AliyunOssUtils;
 import org.ash.Dto.NodeAddDto;
+import org.ash.Dto.TreeNodeDto;
 import org.ash.Entity.Node;
 import org.ash.Entity.TreeRelation;
 import org.ash.Mapper.TreeNodeMapper;
@@ -31,7 +33,7 @@ public class editorServiceImpl implements editorService{
         List<TreeRelation> RootNodes =treeNodeMapper.findRootNodeByAccount(account);
         List<Node> rootNodes = new ArrayList<>();
         for(TreeRelation rootNode : RootNodes){
-            Node root =buildTree(rootNode.getDescendant(),treeNodeMapper.SearchLabelById(rootNode.getDescendant()));
+            Node root =buildTree(rootNode.getDescendant(),treeNodeMapper.SearchLabelById(rootNode.getDescendant()),treeNodeMapper.CheckIsCollectedById(rootNode.getDescendant()));
             rootNodes.add(root);
         }
         return rootNodes;
@@ -55,7 +57,7 @@ public class editorServiceImpl implements editorService{
                 continue;
             }
             // 创建子节点
-            Node childNode = new Node(relation.getDescendant(), treeNodeMapper.SearchLabelById(relation.getDescendant()));
+            Node childNode = new Node(relation.getDescendant(), treeNodeMapper.SearchLabelById(relation.getDescendant()), treeNodeMapper.CheckIsCollectedById(relation.getDescendant()));
             parentNode.addChild(childNode);
             // 递归处理子节点
             buildTreeRecursive(childNode, childNode.getLabel());
@@ -118,8 +120,88 @@ public class editorServiceImpl implements editorService{
         return treeNodeMapper.deleteNodeRelation(nodeId) && treeNodeMapper.deleteNodeById(nodeId);
     }
 
-    public  Node buildTree(String nodeId,String label){
-        Node node = new Node(nodeId,label);
+    @Override
+    public int NodeChangeIsCollected(String nodeId) {
+        int isCollected =  treeNodeMapper.CheckIsCollectedById(nodeId);
+        int NewIsCollectd = isCollected == 0 ? 1 : 0;
+        if(treeNodeMapper.updateIsCollected(NewIsCollectd,nodeId)){
+            return treeNodeMapper.CheckIsCollectedById(nodeId);
+        }else{
+            //2代表错误数据
+            return 500;
+        }
+    }
+
+    @Override
+    public List<TreeNodeDto> getAllCollectedNode(long account) {
+        return treeNodeMapper.getAllCollectedNode(account);
+    }
+    /**
+     * 方法2：分批查询并构建路径
+     */
+    public List<TreeNodeDto> getAllCollectedNodeBatch(long account) {
+        List<TreeNodeDto> result = new ArrayList<>();
+        int batchSize = 100; // 每批处理100条
+        int offset = 0;
+
+        try {
+            // 获取总数
+            int total = treeNodeMapper.getCollectedCount(account);
+            // 分批处理
+            while (offset < total) {
+                // 分批获取收藏节点
+                List<Map<String, Object>> batchNodes = treeNodeMapper.getCollectedNodesByPage(
+                        account, offset, batchSize);
+
+                // 批量获取每个节点的路径
+                List<TreeNodeDto> batchResult = buildNodePathsBatch(batchNodes, account);
+                result.addAll(batchResult);
+
+                offset += batchSize;
+            }
+            // 按路径排序
+            result.sort(Comparator.comparing(TreeNodeDto::getNodePath));
+
+            return result;
+        } catch (Exception e) {
+            throw new RuntimeException("获取收藏节点失败", e);
+        }
+    }
+
+    /**
+     * 批量构建节点路径
+     */
+    private List<TreeNodeDto> buildNodePathsBatch(List<Map<String, Object>> nodes, long account) {
+        if (CollectionUtils.isEmpty(nodes)) {
+            return Collections.emptyList();
+        }
+
+        List<TreeNodeDto> result = new ArrayList<>();
+
+        for (Map<String, Object> node : nodes) {
+            String nodeId = (String) node.get("node_id");
+            String nodeLabel = (String) node.get("node_label");
+
+            // 获取节点路径
+            String ancestorPath = treeNodeMapper.getNodePath(nodeId, account);
+
+            TreeNodeDto dto = new TreeNodeDto();
+            dto.setNodeId(nodeId);
+
+            // 构建完整路径
+            if (ancestorPath != null && !ancestorPath.isEmpty()) {
+                dto.setNodePath(ancestorPath + "/" + nodeLabel);
+            } else {
+                dto.setNodePath(nodeLabel);
+            }
+
+            result.add(dto);
+        }
+
+        return result;
+    }
+    public  Node buildTree(String nodeId,String label,int isCollected){
+        Node node = new Node(nodeId,label,isCollected);
         buildTreeRecursive(node,label);
         return node;
     }

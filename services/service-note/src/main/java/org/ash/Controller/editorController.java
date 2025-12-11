@@ -38,4 +38,12 @@ public class editorController {
     public Result deleteNode(@RequestParam("nodeId") String nodeId){
         return Result.success(editorService.deleteNode(nodeId));
     }
+    @PostMapping("/NodeChangeIsCollected")
+    public Result NodeChangeIsCollected(@RequestParam("nodeId")String nodeId){
+        return Result.success(editorService.NodeChangeIsCollected(nodeId));
+    }
+    @GetMapping("getAllCollectedNode")
+    public Result getAllCollectedNode(@Param("account") long account){
+        return Result.success(editorService.getAllCollectedNodeBatch(account));
+    }
 }

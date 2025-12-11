@@ -39,6 +39,9 @@ springdoc:
       paths-to-match: '/**'
       #生成文档所需的扫包路径，一般为启动类目录
       packages-to-scan: org.ash
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true # 开启下划线转驼峰
 # 阿里云 OSS 配置
 aliyun:
   oss:
@@ -46,6 +49,14 @@ aliyun:
     access-key-id: LTAI5t9VTbZhqBZfJaSwzCkg
     access-key-secret: SnPy6YT8LTshCKS3MH2i4Yhwz9ICGN
     bucket-name: note-flow # 默认存储桶
+huawei:
+  obs:
+    access-key: HPUAAIFZXBACI4AFQRRK
+    secret-key: gj01GV4cRJMJExsDiNRG1LcWN1e96Ewhf2AHeAYE
+    endpoint: obs.cn-southwest-2.myhuaweicloud.com
+    bucket-name: icdio-chen
+
+
 #knife4j配置
 knife4j:
   #是否启用增强设置

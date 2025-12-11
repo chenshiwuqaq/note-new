@@ -31,8 +31,13 @@ public class todoController {
     }
     @GetMapping("/getTodayTodoByAccount")
     public Result getTodayTodoByAccount(
-            @RequestParam("account") long account, @RequestParam LocalDateTime date) {
-        return Result.success(todoService.getTodayTodoByAccount(account, date));
+            @RequestParam("account") long account,
+            @RequestParam(required = false) LocalDateTime date) {
+        if (date != null) {
+            return Result.success(todoService.getTodayTodoByAccount(account, date));
+        } else {
+            return Result.success(todoService.getTodayTodoByAccount(account));
+        }
     }
     @GetMapping("/getMilestones")
     public Result getMilestones(@RequestParam("account") long account){

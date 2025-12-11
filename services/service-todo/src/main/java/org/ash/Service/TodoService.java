@@ -10,6 +10,7 @@ public interface TodoService {
     List<TodoDTO> getTodoByStatus(String taskStatus);
     List<TodoDTO> getAllTodo();
     List<TodoDTO> getTodayTodoByAccount(long account, LocalDateTime date);
+    List<TodoDTO> getTodayTodoByAccount(long account);
     List<TodoDTO> getMilestones(long account);
     boolean addTodo(TodoDTO todoDTO);
     boolean changeStatusById(long[] ids,String status);

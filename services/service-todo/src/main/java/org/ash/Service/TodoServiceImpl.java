@@ -37,18 +37,23 @@ public class TodoServiceImpl implements TodoService {
         return todoMapper.getALlTodo();
     }
 
+    //某日待办，查询某天下的日期
     @Override
-    @Cacheable(value = "todoList", key = "#account + '-' + #date")
+    @Cacheable(
+            value = "todoList",
+            // Key规则：账号 + 指定日期的年月日（剥离时分秒，统一格式）
+            key = "#account + '-' + T(java.time.LocalDate).from(#date.atZone(T(java.time.ZoneId).systemDefault()))"
+    )
     public List<TodoDTO> getTodayTodoByAccount(long account, LocalDateTime date) {
+        // 对传入的 date 做兜底：如果为 null，默认查今天
+        if (date == null) {
+            date = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+        }
         List<TodoDTO> todayTodos = new ArrayList<>();
         List<LocalDateTime> dateRange = DateUtils.getDayRange(date); // 获取当天时间区间
         LocalDateTime startOfDay = dateRange.get(0);
         LocalDateTime endOfDay = dateRange.get(1);
-
-        System.out.println("查询日期范围：" + startOfDay + " 到 " + endOfDay);
-
         List<TodoDTO> todos = todoMapper.getTodoByAccount(account);
-        System.out.println("获取到的所有待办数量：" + todos.size());
 
         for (TodoDTO todo : todos) {
             LocalDateTime taskStart = todo.getStartTime();
@@ -66,7 +71,6 @@ public class TodoServiceImpl implements TodoService {
                     ", 开始时间: " + taskStart + 
                     ", 结束时间: " + taskEnd + 
                     ", 是否在今天: " + isToday);
-
                 if (isToday) {
                     todayTodos.add(todo);
                 }
@@ -74,7 +78,39 @@ public class TodoServiceImpl implements TodoService {
                 System.out.println("任务的开始或结束时间为 null，跳过：" + todo.getTodoId());
             }
         }
-        
+        return todayTodos;
+    }
+    //标准的今日待办
+    @Override
+    @Cacheable(
+            value = "todoList",
+            key = "#account + '-' + T(java.time.LocalDate).now()"
+    )
+    public List<TodoDTO> getTodayTodoByAccount(long account) {
+        List<TodoDTO> todayTodos = new ArrayList<>();
+        //生成当前系统时间的当天日期（获取当前天的零点）
+        LocalDateTime date = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+        List<LocalDateTime> dateRange = DateUtils.getDayRange(date);
+        LocalDateTime startOfDay = dateRange.get(0);
+        LocalDateTime endOfDay = dateRange.get(1);
+
+        System.out.println("查询日期范围：" + startOfDay + " 到 " + endOfDay);
+
+        List<TodoDTO> todos = todoMapper.getTodoByAccount(account);
+
+        for (TodoDTO todo : todos) {
+            LocalDateTime taskStart = todo.getStartTime();
+            LocalDateTime taskEnd = todo.getEndTime();
+            if (taskStart != null && taskEnd != null) {
+                boolean isToday = (taskStart.isBefore(endOfDay) || taskStart.isEqual(endOfDay)) &&
+                        (taskEnd.isAfter(startOfDay) || taskEnd.isEqual(startOfDay));
+                if (isToday) {
+                    todayTodos.add(todo);
+                }
+            } else {
+                System.out.println("任务的开始或结束时间为 null，跳过：" + todo.getTodoId());
+            }
+        }
         System.out.println("今日待办数量：" + todayTodos.size());
         return todayTodos;
     }

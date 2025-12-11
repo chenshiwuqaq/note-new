@@ -11,7 +11,8 @@ public class WordCountServiceImpl implements WordCountService{
     private WordCountMapper wordCountMapper;
     @Override
     public int getTodayWordCount(long account) {
-        return wordCountMapper.getTodayWordCount(account);
+        Integer count = wordCountMapper.getTodayWordCount(account);
+        return count == null ? 0 : count;
     }
 
     @Override
