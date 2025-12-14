@@ -32,4 +32,7 @@ public interface UserMapper {
     boolean updateAvatar(@Param("userPic")String userPic,@Param("account")String account);
     @Select("select user_name from user where account = #{account}")
     String findUsername(@Param("account")long account);
+    // 根据主键查询用户信息
+    @Select("select * from user where user_id = #{userId}")
+    user selectUserById(Integer userId);
 }

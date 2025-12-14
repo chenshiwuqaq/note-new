@@ -1,24 +1,28 @@
 package org.ash.demos.Service;
 
 import org.ash.demos.DTO.UserDTO;
+import org.ash.demos.Entity.user;
 import org.ash.demos.Mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.com.utils.ThreadLocalUtils;
 import org.com.utils.JwtUtil;
+
 import java.security.SecureRandom;
 import java.util.List;
 import java.util.Map;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     private static final String CHARACTERS = "0123456789";
     private static final int ACCOUNT_LENGTH = 6;
     private final UserMapper userMapper;
+
     @Autowired
     public UserServiceImpl(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
+
     @Override
     public String register(UserDTO userDTO) {
         String email = userDTO.getEmail();
@@ -48,6 +52,7 @@ public class UserServiceImpl implements UserService{
         );
         return accountStr;
     }
+
     private String generateUniqueAccount() {
         SecureRandom secureRandom = new SecureRandom();
         StringBuilder account = new StringBuilder(ACCOUNT_LENGTH);
@@ -71,21 +76,38 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean updateAvatar(String user_Picture) {
-        Map<String,Object> map = ThreadLocalUtils.get();
-        return userMapper.updateAvatar(user_Picture,(String) map.get("username"));
+        Map<String, Object> map = ThreadLocalUtils.get();
+        return userMapper.updateAvatar(user_Picture, (String) map.get("username"));
     }
 
+    //    @Override
+//    public String login(String account, String password) {
+//        String SearchPassword = userMapper.findPasswordByAccount(account);
+//        if(password == null){
+//            return "账户不存在";
+//        }
+//        else if(password.equals(SearchPassword)){
+//            return JwtUtil.genToken(account);
+//        }else {
+//            return "密码错误";
+//        }
+//    }
     @Override
     public String login(String account, String password) {
-        String SearchPassword = userMapper.findPasswordByAccount(account);
-        if(password == null){
-            return "账户不存在";
+        // 查询用户
+        user user = userMapper.findUserByAccount(account);
+        if (user == null) {
+            return null; // 用户不存在
         }
-        else if(password.equals(SearchPassword)){
-            return JwtUtil.genToken(account);
-        }else {
-            return "密码错误";
+
+        // 验证密码
+        String dbPassword = userMapper.findPasswordByAccount(account);
+        if (dbPassword != null && dbPassword.equals(password)) {
+            // 登录成功，可以生成token或直接返回成功标识
+            return "login_success_token_" + System.currentTimeMillis();
         }
+
+        return null; // 密码错误
     }
 
     @Override
@@ -93,4 +115,8 @@ public class UserServiceImpl implements UserService{
         return userMapper.findUsername(account);
     }
 
+    @Override
+    public user findUserByAccount(String account) {
+        return userMapper.findUserByAccount(account);
+    }
 }
